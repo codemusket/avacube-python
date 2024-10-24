@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = [
@@ -63,16 +63,31 @@ Action: TypeAlias = Union[ActionEthTransfer, ActionContractExecution]
 
 
 class TriggerSchedule(TypedDict, total=False):
+    cron: str
+    """A crontab expression representing when the task can be triggered."""
+
+    fixed: Iterable[int]
+    """A list of epoch timestamps when the task can be triggered."""
+
     trigger_type: Literal["TimeCondition", "ContractQueryCondition", "ExpressionCondition"]
     """The type of trigger condition."""
 
 
 class TriggerContractQuery(TypedDict, total=False):
+    callmsg: Required[str]
+    """Encoded payload in hex format to send to the contract."""
+
+    contract_address: Required[str]
+    """Target contract address in hex format."""
+
     trigger_type: Literal["TimeCondition", "ContractQueryCondition", "ExpressionCondition"]
     """The type of trigger condition."""
 
 
 class TriggerExpression(TypedDict, total=False):
+    expression: str
+    """The raw expression to be evaluated."""
+
     trigger_type: Literal["TimeCondition", "ContractQueryCondition", "ExpressionCondition"]
     """The type of trigger condition."""
 
