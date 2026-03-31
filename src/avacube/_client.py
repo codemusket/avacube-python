@@ -3,26 +3,24 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, Union, Mapping, cast
+from typing import TYPE_CHECKING, Any, Dict, Mapping, cast
 from typing_extensions import Self, Literal, override
 
 import httpx
 
-from . import resources, _exceptions
+from . import _exceptions
 from ._qs import Querystring
 from ._types import (
-    NOT_GIVEN,
     Omit,
     Timeout,
     NotGiven,
     Transport,
     ProxiesTypes,
     RequestOptions,
+    not_given,
 )
-from ._utils import (
-    is_given,
-    get_async_library,
-)
+from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import AvacubeError, APIStatusError
@@ -32,13 +30,18 @@ from ._base_client import (
     AsyncAPIClient,
 )
 
+if TYPE_CHECKING:
+    from .resources import key, tasks, smart_account_address
+    from .resources.key import KeyResource, AsyncKeyResource
+    from .resources.tasks import TasksResource, AsyncTasksResource
+    from .resources.smart_account_address import SmartAccountAddressResource, AsyncSmartAccountAddressResource
+
 __all__ = [
     "ENVIRONMENTS",
     "Timeout",
     "Transport",
     "ProxiesTypes",
     "RequestOptions",
-    "resources",
     "Avacube",
     "AsyncAvacube",
     "Client",
@@ -53,12 +56,6 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Avacube(SyncAPIClient):
-    smart_account_address: resources.SmartAccountAddressResource
-    tasks: resources.TasksResource
-    key: resources.KeyResource
-    with_raw_response: AvacubeWithRawResponse
-    with_streaming_response: AvacubeWithStreamedResponse
-
     # client options
     auth_key: str
 
@@ -68,9 +65,9 @@ class Avacube(SyncAPIClient):
         self,
         *,
         auth_key: str | None = None,
-        environment: Literal["production", "environment_1", "environment_2"] | NotGiven = NOT_GIVEN,
-        base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
-        timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
+        environment: Literal["production", "environment_1", "environment_2"] | NotGiven = not_given,
+        base_url: str | httpx.URL | None | NotGiven = not_given,
+        timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -88,7 +85,7 @@ class Avacube(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous avacube client instance.
+        """Construct a new synchronous Avacube client instance.
 
         This automatically infers the `auth_key` argument from the `AUTH_KEY` environment variable if it is not provided.
         """
@@ -137,11 +134,31 @@ class Avacube(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.smart_account_address = resources.SmartAccountAddressResource(self)
-        self.tasks = resources.TasksResource(self)
-        self.key = resources.KeyResource(self)
-        self.with_raw_response = AvacubeWithRawResponse(self)
-        self.with_streaming_response = AvacubeWithStreamedResponse(self)
+    @cached_property
+    def smart_account_address(self) -> SmartAccountAddressResource:
+        from .resources.smart_account_address import SmartAccountAddressResource
+
+        return SmartAccountAddressResource(self)
+
+    @cached_property
+    def tasks(self) -> TasksResource:
+        from .resources.tasks import TasksResource
+
+        return TasksResource(self)
+
+    @cached_property
+    def key(self) -> KeyResource:
+        from .resources.key import KeyResource
+
+        return KeyResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AvacubeWithRawResponse:
+        return AvacubeWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AvacubeWithStreamedResponse:
+        return AvacubeWithStreamedResponse(self)
 
     @property
     @override
@@ -169,9 +186,9 @@ class Avacube(SyncAPIClient):
         auth_key: str | None = None,
         environment: Literal["production", "environment_1", "environment_2"] | None = None,
         base_url: str | httpx.URL | None = None,
-        timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
-        max_retries: int | NotGiven = NOT_GIVEN,
+        max_retries: int | NotGiven = not_given,
         default_headers: Mapping[str, str] | None = None,
         set_default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -251,12 +268,6 @@ class Avacube(SyncAPIClient):
 
 
 class AsyncAvacube(AsyncAPIClient):
-    smart_account_address: resources.AsyncSmartAccountAddressResource
-    tasks: resources.AsyncTasksResource
-    key: resources.AsyncKeyResource
-    with_raw_response: AsyncAvacubeWithRawResponse
-    with_streaming_response: AsyncAvacubeWithStreamedResponse
-
     # client options
     auth_key: str
 
@@ -266,9 +277,9 @@ class AsyncAvacube(AsyncAPIClient):
         self,
         *,
         auth_key: str | None = None,
-        environment: Literal["production", "environment_1", "environment_2"] | NotGiven = NOT_GIVEN,
-        base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
-        timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
+        environment: Literal["production", "environment_1", "environment_2"] | NotGiven = not_given,
+        base_url: str | httpx.URL | None | NotGiven = not_given,
+        timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -286,7 +297,7 @@ class AsyncAvacube(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async avacube client instance.
+        """Construct a new async AsyncAvacube client instance.
 
         This automatically infers the `auth_key` argument from the `AUTH_KEY` environment variable if it is not provided.
         """
@@ -335,11 +346,31 @@ class AsyncAvacube(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.smart_account_address = resources.AsyncSmartAccountAddressResource(self)
-        self.tasks = resources.AsyncTasksResource(self)
-        self.key = resources.AsyncKeyResource(self)
-        self.with_raw_response = AsyncAvacubeWithRawResponse(self)
-        self.with_streaming_response = AsyncAvacubeWithStreamedResponse(self)
+    @cached_property
+    def smart_account_address(self) -> AsyncSmartAccountAddressResource:
+        from .resources.smart_account_address import AsyncSmartAccountAddressResource
+
+        return AsyncSmartAccountAddressResource(self)
+
+    @cached_property
+    def tasks(self) -> AsyncTasksResource:
+        from .resources.tasks import AsyncTasksResource
+
+        return AsyncTasksResource(self)
+
+    @cached_property
+    def key(self) -> AsyncKeyResource:
+        from .resources.key import AsyncKeyResource
+
+        return AsyncKeyResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncAvacubeWithRawResponse:
+        return AsyncAvacubeWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncAvacubeWithStreamedResponse:
+        return AsyncAvacubeWithStreamedResponse(self)
 
     @property
     @override
@@ -367,9 +398,9 @@ class AsyncAvacube(AsyncAPIClient):
         auth_key: str | None = None,
         environment: Literal["production", "environment_1", "environment_2"] | None = None,
         base_url: str | httpx.URL | None = None,
-        timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
-        max_retries: int | NotGiven = NOT_GIVEN,
+        max_retries: int | NotGiven = not_given,
         default_headers: Mapping[str, str] | None = None,
         set_default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -449,37 +480,103 @@ class AsyncAvacube(AsyncAPIClient):
 
 
 class AvacubeWithRawResponse:
+    _client: Avacube
+
     def __init__(self, client: Avacube) -> None:
-        self.smart_account_address = resources.SmartAccountAddressResourceWithRawResponse(client.smart_account_address)
-        self.tasks = resources.TasksResourceWithRawResponse(client.tasks)
-        self.key = resources.KeyResourceWithRawResponse(client.key)
+        self._client = client
+
+    @cached_property
+    def smart_account_address(self) -> smart_account_address.SmartAccountAddressResourceWithRawResponse:
+        from .resources.smart_account_address import SmartAccountAddressResourceWithRawResponse
+
+        return SmartAccountAddressResourceWithRawResponse(self._client.smart_account_address)
+
+    @cached_property
+    def tasks(self) -> tasks.TasksResourceWithRawResponse:
+        from .resources.tasks import TasksResourceWithRawResponse
+
+        return TasksResourceWithRawResponse(self._client.tasks)
+
+    @cached_property
+    def key(self) -> key.KeyResourceWithRawResponse:
+        from .resources.key import KeyResourceWithRawResponse
+
+        return KeyResourceWithRawResponse(self._client.key)
 
 
 class AsyncAvacubeWithRawResponse:
+    _client: AsyncAvacube
+
     def __init__(self, client: AsyncAvacube) -> None:
-        self.smart_account_address = resources.AsyncSmartAccountAddressResourceWithRawResponse(
-            client.smart_account_address
-        )
-        self.tasks = resources.AsyncTasksResourceWithRawResponse(client.tasks)
-        self.key = resources.AsyncKeyResourceWithRawResponse(client.key)
+        self._client = client
+
+    @cached_property
+    def smart_account_address(self) -> smart_account_address.AsyncSmartAccountAddressResourceWithRawResponse:
+        from .resources.smart_account_address import AsyncSmartAccountAddressResourceWithRawResponse
+
+        return AsyncSmartAccountAddressResourceWithRawResponse(self._client.smart_account_address)
+
+    @cached_property
+    def tasks(self) -> tasks.AsyncTasksResourceWithRawResponse:
+        from .resources.tasks import AsyncTasksResourceWithRawResponse
+
+        return AsyncTasksResourceWithRawResponse(self._client.tasks)
+
+    @cached_property
+    def key(self) -> key.AsyncKeyResourceWithRawResponse:
+        from .resources.key import AsyncKeyResourceWithRawResponse
+
+        return AsyncKeyResourceWithRawResponse(self._client.key)
 
 
 class AvacubeWithStreamedResponse:
+    _client: Avacube
+
     def __init__(self, client: Avacube) -> None:
-        self.smart_account_address = resources.SmartAccountAddressResourceWithStreamingResponse(
-            client.smart_account_address
-        )
-        self.tasks = resources.TasksResourceWithStreamingResponse(client.tasks)
-        self.key = resources.KeyResourceWithStreamingResponse(client.key)
+        self._client = client
+
+    @cached_property
+    def smart_account_address(self) -> smart_account_address.SmartAccountAddressResourceWithStreamingResponse:
+        from .resources.smart_account_address import SmartAccountAddressResourceWithStreamingResponse
+
+        return SmartAccountAddressResourceWithStreamingResponse(self._client.smart_account_address)
+
+    @cached_property
+    def tasks(self) -> tasks.TasksResourceWithStreamingResponse:
+        from .resources.tasks import TasksResourceWithStreamingResponse
+
+        return TasksResourceWithStreamingResponse(self._client.tasks)
+
+    @cached_property
+    def key(self) -> key.KeyResourceWithStreamingResponse:
+        from .resources.key import KeyResourceWithStreamingResponse
+
+        return KeyResourceWithStreamingResponse(self._client.key)
 
 
 class AsyncAvacubeWithStreamedResponse:
+    _client: AsyncAvacube
+
     def __init__(self, client: AsyncAvacube) -> None:
-        self.smart_account_address = resources.AsyncSmartAccountAddressResourceWithStreamingResponse(
-            client.smart_account_address
-        )
-        self.tasks = resources.AsyncTasksResourceWithStreamingResponse(client.tasks)
-        self.key = resources.AsyncKeyResourceWithStreamingResponse(client.key)
+        self._client = client
+
+    @cached_property
+    def smart_account_address(self) -> smart_account_address.AsyncSmartAccountAddressResourceWithStreamingResponse:
+        from .resources.smart_account_address import AsyncSmartAccountAddressResourceWithStreamingResponse
+
+        return AsyncSmartAccountAddressResourceWithStreamingResponse(self._client.smart_account_address)
+
+    @cached_property
+    def tasks(self) -> tasks.AsyncTasksResourceWithStreamingResponse:
+        from .resources.tasks import AsyncTasksResourceWithStreamingResponse
+
+        return AsyncTasksResourceWithStreamingResponse(self._client.tasks)
+
+    @cached_property
+    def key(self) -> key.AsyncKeyResourceWithStreamingResponse:
+        from .resources.key import AsyncKeyResourceWithStreamingResponse
+
+        return AsyncKeyResourceWithStreamingResponse(self._client.key)
 
 
 Client = Avacube
