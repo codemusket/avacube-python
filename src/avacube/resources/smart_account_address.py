@@ -5,11 +5,8 @@ from __future__ import annotations
 import httpx
 
 from ..types import smart_account_address_retrieve_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._types import Body, Query, Headers, NotGiven, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -28,7 +25,7 @@ class SmartAccountAddressResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> SmartAccountAddressResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/codemusket/avacube-python#accessing-raw-response-data-eg-headers
@@ -53,7 +50,7 @@ class SmartAccountAddressResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AddressResp:
         """
         Retrieve Smart Account Address
@@ -86,7 +83,7 @@ class AsyncSmartAccountAddressResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncSmartAccountAddressResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/codemusket/avacube-python#accessing-raw-response-data-eg-headers
@@ -111,7 +108,7 @@ class AsyncSmartAccountAddressResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AddressResp:
         """
         Retrieve Smart Account Address

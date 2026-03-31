@@ -7,11 +7,8 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import task_cancel_params, task_create_params, task_delete_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -32,7 +29,7 @@ class TasksResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> TasksResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/codemusket/avacube-python#accessing-raw-response-data-eg-headers
@@ -54,15 +51,15 @@ class TasksResource(SyncAPIResource):
         action: task_create_params.Action,
         task_type: Literal["ETHTransferTask", "ContractExecutionTask"],
         trigger: task_create_params.Trigger,
-        expired_at: int | NotGiven = NOT_GIVEN,
-        memo: str | NotGiven = NOT_GIVEN,
-        start_at: int | NotGiven = NOT_GIVEN,
+        expired_at: int | Omit = omit,
+        memo: str | Omit = omit,
+        start_at: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TaskCreateResponse:
         """
         Create a New Task
@@ -115,7 +112,7 @@ class TasksResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TaskListResponse:
         """List Tasks"""
         return self._get(
@@ -135,7 +132,7 @@ class TasksResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BoolValue:
         """
         Delete a Task
@@ -169,7 +166,7 @@ class TasksResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BoolValue:
         """
         Cancel a Task
@@ -199,7 +196,7 @@ class AsyncTasksResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncTasksResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/codemusket/avacube-python#accessing-raw-response-data-eg-headers
@@ -221,15 +218,15 @@ class AsyncTasksResource(AsyncAPIResource):
         action: task_create_params.Action,
         task_type: Literal["ETHTransferTask", "ContractExecutionTask"],
         trigger: task_create_params.Trigger,
-        expired_at: int | NotGiven = NOT_GIVEN,
-        memo: str | NotGiven = NOT_GIVEN,
-        start_at: int | NotGiven = NOT_GIVEN,
+        expired_at: int | Omit = omit,
+        memo: str | Omit = omit,
+        start_at: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TaskCreateResponse:
         """
         Create a New Task
@@ -282,7 +279,7 @@ class AsyncTasksResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TaskListResponse:
         """List Tasks"""
         return await self._get(
@@ -302,7 +299,7 @@ class AsyncTasksResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BoolValue:
         """
         Delete a Task
@@ -336,7 +333,7 @@ class AsyncTasksResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BoolValue:
         """
         Cancel a Task
