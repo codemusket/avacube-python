@@ -43,7 +43,7 @@ class TestTasks:
             task_type="ETHTransferTask",
             trigger={
                 "cron": "cron",
-                "fixed": [0, 0, 0],
+                "fixed": [0],
                 "trigger_type": "TimeCondition",
             },
             expired_at=0,
@@ -175,7 +175,9 @@ class TestTasks:
 
 
 class TestAsyncTasks:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_create(self, async_client: AsyncAvacube) -> None:
@@ -199,7 +201,7 @@ class TestAsyncTasks:
             task_type="ETHTransferTask",
             trigger={
                 "cron": "cron",
-                "fixed": [0, 0, 0],
+                "fixed": [0],
                 "trigger_type": "TimeCondition",
             },
             expired_at=0,
