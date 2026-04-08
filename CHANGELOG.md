@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2026-04-08)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/codemusket/avacube-python/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([f09e6e2](https://github.com/codemusket/avacube-python/commit/f09e6e28153adda9e7d108561a1f295403bddbda))
+
+
+### Chores
+
+* **tests:** bump steady to v0.20.2 ([fe7f463](https://github.com/codemusket/avacube-python/commit/fe7f463608d252ea24beb6b753f9c086c15e9879))
+
 ## 0.1.0-alpha.2 (2026-03-31)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/codemusket/avacube-python/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
