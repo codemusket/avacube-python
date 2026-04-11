@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2026-04-11)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/codemusket/avacube-python/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Bug Fixes
+
+* ensure file data are only sent as 1 parameter ([d9bf316](https://github.com/codemusket/avacube-python/commit/d9bf3168a16fd011c259d4bcac878c6289caa6d5))
+
 ## 0.1.0-alpha.3 (2026-04-08)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/codemusket/avacube-python/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
