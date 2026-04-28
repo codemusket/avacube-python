@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.1.0-alpha.5 (2026-04-28)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/codemusket/avacube-python/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+### Features
+
+* support setting headers via env ([146eaf7](https://github.com/codemusket/avacube-python/commit/146eaf71a472254e6307fc866959757ee50446cd))
+
+
+### Bug Fixes
+
+* use correct field name format for multipart file arrays ([1977c47](https://github.com/codemusket/avacube-python/commit/1977c47b5f5ee4c2f7fc1126fd8a3e5403eae27f))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([879a427](https://github.com/codemusket/avacube-python/commit/879a42798961e56f57d072964934a33728bfd9fa))
+
+
+### Chores
+
+* **internal:** more robust bootstrap script ([43a8de7](https://github.com/codemusket/avacube-python/commit/43a8de791adbd55ebfdbb40f17ab0fda0996fe2b))
+* **tests:** bump steady to v0.22.1 ([3328faf](https://github.com/codemusket/avacube-python/commit/3328fafd44095228ba2cfcf94eb083e706d223d5))
+
 ## 0.1.0-alpha.4 (2026-04-11)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/codemusket/avacube-python/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
