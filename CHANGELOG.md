@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.6 (2026-05-01)
+
+Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/codemusket/avacube-python/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
+
+### Chores
+
+* **internal:** reformat pyproject.toml ([0f74be3](https://github.com/codemusket/avacube-python/commit/0f74be31eab1aa5eb056554c087b70b0955f3747))
+
 ## 0.1.0-alpha.5 (2026-04-28)
 
 Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/codemusket/avacube-python/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
