@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.7 (2026-05-12)
+
+Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/codemusket/avacube-python/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
+
+### Features
+
+* **internal/types:** support eagerly validating pydantic iterators ([f284d53](https://github.com/codemusket/avacube-python/commit/f284d53300657d99b73c422eadaeae0d550b9263))
+
 ## 0.1.0-alpha.6 (2026-05-09)
 
 Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/codemusket/avacube-python/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
