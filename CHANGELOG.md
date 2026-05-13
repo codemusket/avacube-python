@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0-alpha.8 (2026-05-13)
+
+Full Changelog: [v0.1.0-alpha.7...v0.1.0-alpha.8](https://github.com/codemusket/avacube-python/compare/v0.1.0-alpha.7...v0.1.0-alpha.8)
+
 ## 0.1.0-alpha.7 (2026-05-12)
 
 Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/codemusket/avacube-python/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
